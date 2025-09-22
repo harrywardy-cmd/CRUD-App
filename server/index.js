@@ -4,10 +4,12 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import route from "./routes/userRoute.js";
+import cors from "cors"
 
 
 // Create an Express app
 const app = express();
+app.use(cors())
 app.use(bodyParser.json());
 
 // Load environment variables from .env file
