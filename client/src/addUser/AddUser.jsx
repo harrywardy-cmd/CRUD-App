@@ -1,39 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import "./adduser.css";
-import {Link,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-
-
 const AddUser = () => {
-    const users = {
-      name:"",
-      email:"",
-      address: "",
-    };
-    const [user, setUser] = useState(users);
-    const navigate = useNavigate();
+  const users = {
+    name: "",
+    email: "",
+    address: "",
+  };
+  const [user, setUser] = useState(users);
+  const navigate = useNavigate();
 
-    const inputHandler = (e) =>{
-      const {name, value} = e.target;
-      console.log(name, value);
+  const inputHandler = (e) => {
+    const { name, value } = e.target;
+    console.log(name, value);
 
-      setUser({...user, [name]:value});
-    };
+    setUser({ ...user, [name]: value });
+  };
 
-    const submitForm = async(e)=>{
-      e.preventDefault();
-       await axios.post("http://localhost:8000/api/user",user)
-       .then((response)=>{
-          //console.log("User created successfully.");
-          toast.success(response.data.message,{position: "top-right"});
-          navigate("/")
-       })
-       .catch((error)=>{
-        console.log(error)
-       })
+ const submitForm = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8000/api/user", user);
+      toast.success(response.data.message || "User created successfully!", {position: "top-right",});
+      navigate("/");
+    } catch (error) {
+      // Catch backend error 
+      if (error.response) {
+        const { status, data } = error.response;
+        if (status === 400) {
+          toast.error(data.message || "User already exists!", {position: "top-right",});
+        } else {
+          toast.error("Something went wrong. Please try again.", {position: "top-right",});
+        }
+      } else {
+        toast.error("Network error. Please check your connection.", {position: "top-right",});
+      }
+      console.error("Error creating user:", error);
     }
+  };
+
   return (
     
     <div className="addUser"> 
