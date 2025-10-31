@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./User.css"
 import axios from "axios";
 import {Link} from "react-router-dom";
+import toast from "react-hot-toast";
 
 const User = () => {
     const [users,setUsers] = useState([])
@@ -19,7 +20,17 @@ const User = () => {
         fetchData()
     },[]);
 
-
+    const deleteUser = async (userId) =>{
+        await axios
+            .delete(`http://localhost:8000/api/delete/user/${userId}`)
+            .then((response) => {
+            setUsers((prevUser) => prevUser.filter((user) => user._id !== userId));
+            toast.success(response.data.message, { position: "top-right" });
+            })
+            .catch((error) => {
+            console.log(error);
+        });
+  };
     return(
         <div className="userTable">
             <Link to="/add" type="button" class="btn btn-primary">Add User <i class="fa-solid fa-user-plus"></i></Link>
@@ -43,7 +54,7 @@ const User = () => {
                                 <td>{user.address}</td>
                                 <td className="actionButtons">
                                     <Link to={'/update/' +user._id} type="button" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></Link>
-                                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                    <button  onClick={()=>deleteUser(user._id)}type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                     
                                 </td>
                             </tr>
