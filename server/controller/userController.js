@@ -73,11 +73,21 @@ export const login = async (req, res) => {
 // Get all users
 export const getAllUsers = async (req, res) => {
   try {
-    const userData = await User.find();
-    if (!userData || userData.length === 0) {
+    let users;
+
+    if (req.user.role === "admin") {
+      // Admin: can see all users
+      users = await User.find().select("-password");
+    } else {
+      // Normal user: only their own details
+      users = await User.find({ _id: req.user.id }).select("-password");
+    }
+
+    if (!users || users.length === 0) {
       return res.status(404).json({ message: "User data not found." });
     }
-    res.status(200).json(userData);
+
+    res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ errorMessage: error.message });
   }

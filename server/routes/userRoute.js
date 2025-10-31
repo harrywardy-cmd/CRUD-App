@@ -19,7 +19,7 @@ route.post("/login", login); // login
 // Protected routes
 
 // Only admin can get all users
-route.get("/users", verifyToken, verifyAdmin, getAllUsers);
+route.get("/users", verifyToken, getAllUsers);
 
 // Any logged-in user can get their own info
 route.get("/user/:id", verifyToken, getUserByID);
