@@ -47,6 +47,7 @@ const User = () => {
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Address</th>
+                    <th scope="col">Password</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -58,6 +59,7 @@ const User = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>{user.address}</td>
+                                <td>{user.password}</td>
                                 <td className="actionButtons">
                                     <Link to={'/update/' +user._id} type="button" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></Link>
                                     <button  onClick={()=>deleteUser(user._id)}type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>

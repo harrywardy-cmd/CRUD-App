@@ -7,7 +7,6 @@ export const create = async (req, res) => {
 
     const userExist = await User.findOne({ email });
     if (userExist) {
-      console.log("USER IS HERE")
       return res.status(400).json({ message: "User already exists." });
     }
     const savedData = await newUser.save();

@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import "./adduser.css";
+import "./signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const AddUser = () => {
-  const users = {
+
+const Signup = () => {
+    const users = {
     name: "",
     email: "",
     address: "",
-    password: "",
   };
   const [user, setUser] = useState(users);
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const AddUser = () => {
     try {
       const response = await axios.post("http://localhost:8000/api/user", user);
       toast.success(response.data.message || "User created successfully!", {position: "top-right",});
-      navigate("/user");
+      navigate("/");
     } catch (error) {
       // Catch backend error 
       if (error.response) {
@@ -44,13 +44,9 @@ const AddUser = () => {
   };
 
   return (
-    
-    <div className="addUser"> 
-      <Link to="/user" type="button" class="btn btn-secondary">
-        <i class="fa-solid fa-backward"></i> Back
-      </Link>
-      <h3>Add New User</h3>
-      <form className="addUserForm" onSubmit={submitForm}>
+    <div className="addUser">
+      <h3>Sign Up</h3>
+      <form className="addUserForm"onSubmit={submitForm}>
         <div className="inputGroup">
           <label htmlFor="name">Name:</label>
           <input
@@ -59,11 +55,9 @@ const AddUser = () => {
             onChange={inputHandler}
             name="name"
             autoComplete="off"
-            placeholder="Enter your Name"
+            placeholder="Enter your name"
           />
-        </div>
-        <div className="inputGroup">
-          <label htmlFor="email">E-mail:</label>
+          <label htmlFor="email">Email:</label>
           <input
             type="email"
             id="email"
@@ -72,35 +66,26 @@ const AddUser = () => {
             autoComplete="off"
             placeholder="Enter your Email"
           />
-        </div>
-        <div className="inputGroup">
-          <label htmlFor="address">Address:</label>
+          <label htmlFor="Password">Password:</label>
           <input
-            type="text"
-            id="address"
-            onChange={inputHandler}
-            name="address"
-            autoComplete="off"
-            placeholder="Enter your Address"
-          />
-        </div>
-        <div className="inputGroup">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="text"
+            type="password"
             id="password"
             onChange={inputHandler}
             name="password"
             autoComplete="off"
-            placeholder="Enter your Password"
+            placeholder="Enter Password"
           />
-        </div>
-        <div className="inputGroup">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-success">
+            Sign Up
+          </button>
         </div>
       </form>
+      <div className="login">
+        <p>Already have an Account? </p>
+        <Link to="/" type="submit" class="btn btn-primary">Login</Link>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default AddUser
+export default Signup;
