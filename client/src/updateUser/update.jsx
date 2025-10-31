@@ -9,6 +9,7 @@ const UpdateUser = () => {
     name: "",
     email: "",
     address: "",
+    password: "",
   };
   const [user, setUser] = useState(users);
   const navigate = useNavigate();
