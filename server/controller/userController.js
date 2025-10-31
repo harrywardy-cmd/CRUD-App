@@ -93,20 +93,28 @@ export const getUserByID = async (req, res) => {
   }
 };
 
-export const update = async(req, res) =>{
-  try{
+export const update = async (req, res) => {
+  try {
     const id = req.params.id;
     const userExist = await User.findById(id);
 
-    if (!userExist){
+    if (!userExist) {
       return res.status(404).json({ message: "User not found." });
     }
-    const updatedData = await User.findByIdAndUpdate(id, req.body,{new:true})
-    //res.status(200).json(updatedData);
-    res.status(200).json({ message: "User Updated successfully." });
 
-  }catch(error){
-    res.status(500).jason({errorMessage: error.message});
+    const updatedData = { ...req.body };
+
+    //Hash password if it's being updated
+    if (updatedData.password) {
+      const salt = await bcrypt.genSalt(10);
+      updatedData.password = await bcrypt.hash(updatedData.password, salt);
+    }
+
+    await User.findByIdAndUpdate(id, updatedData, { new: true });
+
+    res.status(200).json({ message: "User updated successfully." });
+  } catch (error) {
+    res.status(500).json({ errorMessage: error.message }); 
   }
 };
 

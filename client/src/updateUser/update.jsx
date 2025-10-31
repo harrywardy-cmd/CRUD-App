@@ -95,11 +95,10 @@ const UpdateUser = () => {
           <input
             type="text"
             id="password"
-            value={user.password}
             onChange={inputHandler}
             name="password"
             autoComplete="off"
-            placeholder="Enter your password"
+            placeholder="Enter your new password"
           />
         </div>
         <div className="inputGroup">
