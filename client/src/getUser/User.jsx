@@ -78,12 +78,10 @@ const User = () => {
 
                 </tbody>
             </table>)}
-
-
         </div>
     )
+    
 }
-
 export default User
 
 
