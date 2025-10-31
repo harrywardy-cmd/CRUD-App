@@ -5,28 +5,46 @@ import toast from "react-hot-toast";
 import React, { useState } from "react";
 
 const Login = () => {
-    const users = {
+    const [user, setUser] = useState({
     email: "",
     password: "",
-  };
-  const [user, setUser] = useState(users);
+  });
   const navigate = useNavigate();
 
   const inputHandler = (e) => {
     const { name, value } = e.target;
     console.log(name, value);
 
-    setUser({ ...user, [name]: value });
+    setUser((prevUser) => ({ ...prevUser, [name]: value }));
   };
 
   const submitForm = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get("http://localhost:8000/api/users", user);
-      toast.success(response.data.message || "User Logged in successfully!", {position: "top-right",});
+      //  POST to your backend login route
+      const response = await axios.post("http://localhost:8000/api/login", user);
+
+      // Display success toast
+      toast.success(response.data.message || "User logged in successfully!", {
+        position: "top-right",
+      });
+
+      //  Save token for authentication
+      localStorage.setItem("token", response.data.token);
+
+      //  Navigate to a protected page
       navigate("/user");
     } catch (error) {
-      console.error("Error creating user:", error);
+      console.error("Login error:", error);
+
+      //  Display error toast
+      if (error.response) {
+        toast.error(error.response.data.message || "Invalid email or password", {
+          position: "top-right",
+        });
+      } else {
+        toast.error("Server not responding", { position: "top-right" });
+      }
     }
   };
   return (
