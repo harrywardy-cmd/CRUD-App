@@ -38,7 +38,7 @@ const UpdateUser = () => {
       .put(`http://localhost:8000/api/update/user/${id}`, user)
       .then((response) => {
         toast.success(response.data.message, { position: "top-right" });
-        navigate("/");
+        navigate("/user");
       })
       .catch((error) => {
         console.log(error);
@@ -90,9 +90,19 @@ const UpdateUser = () => {
           />
         </div>
         <div className="inputGroup">
-          <button type="submit" class="btn btn-primary">
-            Submit
-          </button>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="text"
+            id="password"
+            value={user.password}
+            onChange={inputHandler}
+            name="password"
+            autoComplete="off"
+            placeholder="Enter your password"
+          />
+        </div>
+        <div className="inputGroup">
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </form>
     </div>
