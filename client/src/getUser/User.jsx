@@ -34,6 +34,7 @@ const User = () => {
     return(
         <div className="userTable">
             <Link to="/add" type="button" class="btn btn-primary">Add User <i class="fa-solid fa-user-plus"></i></Link>
+            <Link to="/" type="button" class="btn btn-secondary"><i class="fa-solid fa-backward"></i> Logout</Link>
 
             {users.length=== 0?(
                 <div className="noData">

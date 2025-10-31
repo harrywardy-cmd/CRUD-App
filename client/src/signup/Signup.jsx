@@ -6,10 +6,11 @@ import toast from "react-hot-toast";
 
 
 const Signup = () => {
-    const users = {
+  const users = {
     name: "",
     email: "",
     address: "",
+    password: "",
   };
   const [user, setUser] = useState(users);
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const Signup = () => {
     try {
       const response = await axios.post("http://localhost:8000/api/user", user);
       toast.success(response.data.message || "User created successfully!", {position: "top-right",});
-      navigate("/");
+      navigate("/user");
     } catch (error) {
       // Catch backend error 
       if (error.response) {
@@ -42,11 +43,13 @@ const Signup = () => {
       console.error("Error creating user:", error);
     }
   };
-
   return (
-    <div className="addUser">
-      <h3>Sign Up</h3>
-      <form className="addUserForm"onSubmit={submitForm}>
+    <div className="addUser"> 
+      <Link to="/" type="button" class="btn btn-secondary">
+        <i class="fa-solid fa-backward"></i> Back
+      </Link>
+      <h3>Signup</h3>
+      <form className="addUserForm" onSubmit={submitForm}>
         <div className="inputGroup">
           <label htmlFor="name">Name:</label>
           <input
@@ -55,9 +58,11 @@ const Signup = () => {
             onChange={inputHandler}
             name="name"
             autoComplete="off"
-            placeholder="Enter your name"
+            placeholder="Enter your Name"
           />
-          <label htmlFor="email">Email:</label>
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="email">E-mail:</label>
           <input
             type="email"
             id="email"
@@ -66,26 +71,35 @@ const Signup = () => {
             autoComplete="off"
             placeholder="Enter your Email"
           />
-          <label htmlFor="Password">Password:</label>
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="address">Address:</label>
           <input
-            type="password"
+            type="text"
+            id="address"
+            onChange={inputHandler}
+            name="address"
+            autoComplete="off"
+            placeholder="Enter your Address"
+          />
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="password">Password:</label>
+          <input
+            type="text"
             id="password"
             onChange={inputHandler}
             name="password"
             autoComplete="off"
-            placeholder="Enter Password"
+            placeholder="Enter your Password"
           />
-          <button type="submit" class="btn btn-success">
-            Sign Up
-          </button>
+        </div>
+        <div className="inputGroup">
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </form>
-      <div className="login">
-        <p>Already have an Account? </p>
-        <Link to="/" type="submit" class="btn btn-primary">Login</Link>
-      </div>
     </div>
-  );
-};
+  )
+}
 
 export default Signup;
