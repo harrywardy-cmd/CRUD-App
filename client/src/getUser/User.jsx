@@ -6,30 +6,36 @@ import toast from "react-hot-toast";
 
 const User = () => {
     const [users,setUsers] = useState([])
-    useEffect(()=>{
-        const fetchData = async()=>{
-            try{
-
-                const response = await axios.get("http://localhost:8000/api/users")
-                setUsers(response.data)
-
-            }catch (error){
-                console.log("Error while fetching data", error)
-            }
-        };
-        fetchData()
-    },[]);
-
-    const deleteUser = async (userId) =>{
-        await axios
-            .delete(`http://localhost:8000/api/delete/user/${userId}`)
-            .then((response) => {
-            setUsers((prevUser) => prevUser.filter((user) => user._id !== userId));
-            toast.success(response.data.message, { position: "top-right" });
-            })
-            .catch((error) => {
-            console.log(error);
+    useEffect(() => {
+    const fetchData = async () => {
+        try {
+        const token = localStorage.getItem("token"); // get token from storage
+        const response = await axios.get("http://localhost:8000/api/users", {
+            headers: { Authorization: `Bearer ${token}` }
         });
+        setUsers(response.data);
+        } catch (error) {
+        console.log("Error while fetching data", error);
+        toast.error("Failed to fetch users. Are you logged in as admin?");
+        }
+    };
+
+    fetchData();
+    }, []);
+    const deleteUser = async (userId) => {
+    try {
+        const token = localStorage.getItem("token"); // get the saved JWT
+        const response = await axios.delete(`http://localhost:8000/api/delete/user/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` }, // include token
+        });
+
+        // update state to remove deleted user
+        setUsers((prevUser) => prevUser.filter((user) => user._id !== userId));
+        toast.success(response.data.message, { position: "top-right" });
+    } catch (error) {
+        console.log(error);
+        toast.error("Failed to delete user. Are you logged in as admin?");
+    }
   };
     return(
         <div className="userTable">
@@ -44,10 +50,11 @@ const User = () => {
             ):(        <table className="table table-bordered">
                 <thead>
                 <tr>
-                    <th scope="col">S.No.</th>
+                    <th scope="col">No.</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Address</th>
+                    <th scope="col">Admin</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -59,6 +66,7 @@ const User = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>{user.address}</td>
+                                <td>{user.role}</td>
                                 <td className="actionButtons">
                                     <Link to={'/update/' +user._id} type="button" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></Link>
                                     <button  onClick={()=>deleteUser(user._id)}type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>

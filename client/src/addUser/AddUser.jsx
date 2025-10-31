@@ -10,44 +10,52 @@ const AddUser = () => {
     email: "",
     address: "",
     password: "",
+    isAdmin: false, // new field
   };
   const [user, setUser] = useState(users);
   const navigate = useNavigate();
 
   const inputHandler = (e) => {
-    const { name, value } = e.target;
-    console.log(name, value);
+    const { name, value, type, checked } = e.target;
 
-    setUser({ ...user, [name]: value });
-  };
-
- const submitForm = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:8000/api/user", user);
-      toast.success(response.data.message || "User created successfully!", {position: "top-right",});
-      navigate("/user");
-    } catch (error) {
-      // Catch backend error 
-      if (error.response) {
-        const { status, data } = error.response;
-        if (status === 400) {
-          toast.error(data.message || "User already exists!", {position: "top-right",});
-        } else {
-          toast.error("Something went wrong. Please try again.", {position: "top-right",});
-        }
-      } else {
-        toast.error("Network error. Please check your connection.", {position: "top-right",});
-      }
-      console.error("Error creating user:", error);
+    // handle checkbox separately
+    if (type === "checkbox") {
+      setUser({ ...user, [name]: checked });
+    } else {
+      setUser({ ...user, [name]: value });
     }
   };
 
+  const submitForm = async (e) => {
+  e.preventDefault();
+  try {
+    // Map isAdmin to role
+    const payload = {
+      ...user,
+      role: user.isAdmin ? "admin" : "user",
+    };
+
+    const response = await axios.post("http://localhost:8000/api/user", payload);
+    toast.success(response.data.message || "User created successfully!", { position: "top-right" });
+    navigate("/user");
+  } catch (error) {
+    if (error.response) {
+      const { status, data } = error.response;
+      if (status === 400) {
+        toast.error(data.message || "User already exists!", { position: "top-right" });
+      } else {
+        toast.error("Something went wrong. Please try again.", { position: "top-right" });
+      }
+    } else {
+      toast.error("Network error. Please check your connection.", { position: "top-right" });
+    }
+    console.error("Error creating user:", error);
+  }
+};
   return (
-    
-    <div className="addUser"> 
-      <Link to="/user" type="button" class="btn btn-secondary">
-        <i class="fa-solid fa-backward"></i> Back
+    <div className="addUser">
+      <Link to="/user" type="button" className="btn btn-secondary">
+        <i className="fa-solid fa-backward"></i> Back
       </Link>
       <h3>Add New User</h3>
       <form className="addUserForm" onSubmit={submitForm}>
@@ -96,11 +104,22 @@ const AddUser = () => {
           />
         </div>
         <div className="inputGroup">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <label>
+            <input
+              type="checkbox"
+              name="isAdmin"
+              checked={user.isAdmin}
+              onChange={inputHandler}
+            />
+            Make this user an admin
+          </label>
+        </div>
+        <div className="inputGroup">
+          <button type="submit" className="btn btn-primary">Submit</button>
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default AddUser
+export default AddUser;

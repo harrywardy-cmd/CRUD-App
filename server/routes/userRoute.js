@@ -8,18 +8,26 @@ import {
   login,
 } from "../controller/userController.js";
 
-import { verifyToken } from "../middleware/auth.js"; // ⬅️ optional (for protected routes)
+import { verifyToken, verifyAdmin } from "../middleware/auth.js"; // add verifyAdmin
 
 const route = express.Router();
 
-// ✅ Auth routes
+// Public routes
 route.post("/user", create); // signup
-route.post("/login", login);     // login
+route.post("/login", login); // login
 
-// ✅ CRUD routes (you can protect these later)
-route.get("/users", getAllUsers);
-route.get("/user/:id", getUserByID);
-route.put("/update/user/:id", update);
-route.delete("/delete/user/:id", deleteUser);
+// Protected routes
+
+// Only admin can get all users
+route.get("/users", verifyToken, verifyAdmin, getAllUsers);
+
+// Any logged-in user can get their own info
+route.get("/user/:id", verifyToken, getUserByID);
+
+// Users can update their own info, admins can update anyone
+route.put("/update/user/:id", verifyToken, update);
+
+// Only admin can delete a user
+route.delete("/delete/user/:id", verifyToken, verifyAdmin, deleteUser);
 
 export default route;

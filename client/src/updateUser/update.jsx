@@ -5,51 +5,60 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const UpdateUser = () => {
-  const users = {
-    name: "",
-    email: "",
-    address: "",
-    password: "",
-  };
-  const [user, setUser] = useState(users);
+  const [user, setUser] = useState({ name: "", email: "", address: "" });
+  const [password, setPassword] = useState(""); // new password only
   const navigate = useNavigate();
   const { id } = useParams();
 
   const inputHandler = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
-
     setUser({ ...user, [name]: value });
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("token"); // if using JWT
     axios
-      .get(`http://localhost:8000/api/user/${id}`)
+      .get(`http://localhost:8000/api/user/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
-        setUser(response.data);
+        setUser({
+          name: response.data.name,
+          email: response.data.email,
+          address: response.data.address,
+        });
       })
       .catch((error) => {
         console.log(error);
+        toast.error("Failed to fetch user data.");
       });
   }, [id]);
 
   const submitForm = async (e) => {
     e.preventDefault();
-    await axios
-      .put(`http://localhost:8000/api/update/user/${id}`, user)
-      .then((response) => {
-        toast.success(response.data.message, { position: "top-right" });
-        navigate("/user");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const token = localStorage.getItem("token"); // JWT token
+
+    const updatedUser = { ...user };
+    if (password.trim() !== "") updatedUser.password = password;
+
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/update/user/${id}`,
+        updatedUser,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast.success(response.data.message, { position: "top-right" });
+      navigate("/user");
+    } catch (error) {
+      console.error("Update failed:", error.response?.data || error.message);
+      toast.error(error.response?.data?.message || "Failed to update user.");
+    }
   };
 
   return (
     <div className="addUser">
-      <Link to="/user" type="button" class="btn btn-secondary">
-        <i class="fa-solid fa-backward"></i> Back
+      <Link to="/user" type="button" className="btn btn-secondary">
+        <i className="fa-solid fa-backward"></i> Back
       </Link>
 
       <h3>Update User</h3>
@@ -93,16 +102,19 @@ const UpdateUser = () => {
         <div className="inputGroup">
           <label htmlFor="password">Password:</label>
           <input
-            type="text"
+            type="password"
             id="password"
-            onChange={inputHandler}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             name="password"
             autoComplete="off"
-            placeholder="Enter your new password"
+            placeholder="Enter new password (leave blank to keep current)"
           />
         </div>
         <div className="inputGroup">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
         </div>
       </form>
     </div>
