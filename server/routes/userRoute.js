@@ -8,7 +8,7 @@ import {
   login,
 } from "../controller/userController.js";
 
-import { verifyToken, verifyAdmin } from "../middleware/auth.js"; // add verifyAdmin
+import { verifyToken, verifyAdmin } from "../middleware/auth.js"; // add verify Admin
 
 const route = express.Router();
 
