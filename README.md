@@ -8,3 +8,6 @@ This is a simple MERN (MongoDB, Express.js, React.js, Node.js) stack application
 - **Express.js**: Express.js is used as the web application framework to handle server-side logic.
 - **React.js**: React.js is used for building the user interface components.
 - **Node.js**: Node.js is used as the server-side runtime environment.
+
+- admin and user roles
+- basic auth for edit and deleting user records 
