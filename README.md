@@ -10,4 +10,4 @@ This is a simple MERN (MongoDB, Express.js, React.js, Node.js) stack application
 - **Node.js**: Node.js is used as the server-side runtime environment.
 
 - admin and user roles
-- basic auth for edit and deleting user records 
+- **jsonwebtoken:**: basic auth for edit and deleting user records 
