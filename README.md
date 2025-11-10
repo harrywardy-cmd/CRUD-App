@@ -1,13 +1,36 @@
-# MERN Stack App
+# MERN Stack CRUD App (with Authentication & Role-Based Access)
 
-This is a simple MERN (MongoDB, Express.js, React.js, Node.js) stack application. It serves as a template for building full-stack web applications using these technologies.
+A **full-stack MERN application** demonstrating user management with secure **JWT authentication**, **admin/user roles**, and full **CRUD (Create, Read, Update, Delete)** operations.  
+
+Admins can manage all users, while normal users can only view others’ public details (name, email, and address).
+
+---
 
 ## Features
 
-- **MongoDB**: MongoDB is used as the database to store application data.
-- **Express.js**: Express.js is used as the web application framework to handle server-side logic.
-- **React.js**: React.js is used for building the user interface components.
-- **Node.js**: Node.js is used as the server-side runtime environment.
+**User Authentication** — Secure JWT-based login & signup  
+**Role-based Access** — Admin vs. regular user permissions  
+**CRUD Operations** — Create, view, edit, and delete users  
+**Password Hashing** — Securely stored passwords via bcrypt  
+**Protected Routes** — Middleware-controlled access  
+**React Frontend** — Fast and responsive UI using Axios + React Router  
+**RESTful API** — Clean and modular backend with Express + MongoDB  
 
-- admin and user roles
-- **jsonwebtoken:**: basic auth for edit and deleting user records 
+---
+
+## Stack
+
+| Layer | Technology |
+|--------|-------------|
+| **Frontend** | React, Axios, React Router, Bootstrap |
+| **Backend** | Node.js, Express.js |
+| **Database** | MongoDB, Mongoose |
+| **Authentication** | JWT (jsonwebtoken), bcrypt |
+| **Styling** | CSS / Bootstrap |
+| **UI Helpers** | react-hot-toast, jwt-decode |
+
+---
+
+## Installation & Setup
+
+
