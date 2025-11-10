@@ -35,7 +35,7 @@ Admins can manage all users, while normal users can only view others’ public d
 
 ### 1️ Clone the repository
 ```bash
-git clone https://github.com/your-username/mern-crud-app.git
+git clone https://github.com/harrywardy-cmd/CRUD-App.git
 cd mern-crud-app
 ```
 
