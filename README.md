@@ -61,7 +61,7 @@ Start the backend:
 npm start
 ```
 
-➡ Server runs on **http://localhost:8000**
+ Server runs on **http://localhost:8000**
 
 ---
 
@@ -77,7 +77,7 @@ Start the frontend:
 npm start
 ```
 
-➡ Client runs on **http://localhost:3000**
+ Client runs on **http://localhost:3000**
 
 ---
 
