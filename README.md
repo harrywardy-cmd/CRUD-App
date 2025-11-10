@@ -165,8 +165,8 @@ To promote a user to admin in MongoDB:
 ##  Author
 
 ** Harry Ward**  
- [harrywardy303@gmail.com]  
- GitHub: [https://github.com/harrywardy-cmd]
+ harrywardy303@gmail.com 
+ GitHub: https://github.com/harrywardy-cmd
 
 ---
 
