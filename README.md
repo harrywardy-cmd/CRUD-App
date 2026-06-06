@@ -1,46 +1,65 @@
 # MERN User Management Platform
 
-A full-stack user management application built using the MERN stack, featuring secure authentication, role-based access control, protected API endpoints, and complete user lifecycle management.
+A full-stack user management platform built with the MERN stack (MongoDB, Express.js, React, and Node.js), featuring secure authentication, JWT-based authorization, protected API endpoints, and cloud deployment using MongoDB Atlas, Render, and Vercel.
 
-This project demonstrates modern full-stack development practices including authentication, authorization, REST API design, database modelling, frontend routing, and secure user management workflows.
-
----
-
-# Project Overview
-
-The application simulates a real-world user administration platform where authenticated users can access protected resources and administrators can manage user accounts through a secure interface.
-
-The project was designed to strengthen understanding of full-stack application architecture, authentication systems, API security, and role-based permissions.
+The application allows users to register, authenticate, and manage user records through a responsive web interface while enforcing secure access to protected resources.
 
 ---
 
-# Engineering Highlights
+## Live Demo
 
-### Secure Authentication
+Frontend: https://your-vercel-url.vercel.app
 
-Implemented JSON Web Token (JWT) authentication with encrypted password storage using bcrypt to ensure secure user registration and login workflows.
-
-### Role-Based Access Control (RBAC)
-
-Designed and implemented an authorization system supporting multiple permission levels, allowing administrators to manage all users while restricting standard users to approved actions.
-
-### RESTful API Architecture
-
-Built a modular Express.js backend following REST principles with structured routing, middleware, controllers, and database models.
-
-### Full CRUD Functionality
-
-Implemented complete Create, Read, Update, and Delete operations with validation, protected access controls, and role-aware permissions.
-
-### Database Design
-
-Developed scalable MongoDB schemas using Mongoose to manage user data, authentication information, and role assignments.
+Backend API: https://crud-app-mphw.onrender.com
 
 ---
 
-# Technology Stack
+## Project Overview
 
-## Frontend
+This project was built to strengthen practical experience with modern full-stack web development, REST API design, cloud deployment, authentication systems, and frontend-backend integration.
+
+The application demonstrates many of the patterns commonly used in production SaaS applications and internal business systems, including:
+
+* Secure user authentication
+* Protected API endpoints
+* Database persistence
+* Cloud-hosted infrastructure
+* Full CRUD functionality
+* Client-server architecture
+
+---
+
+## Engineering Highlights
+
+### JWT Authentication
+
+Implemented secure authentication using JSON Web Tokens (JWT) to protect application resources and validate user sessions.
+
+### Password Security
+
+User passwords are securely hashed using bcrypt before being stored in MongoDB, ensuring plaintext credentials are never persisted.
+
+### Full CRUD Operations
+
+Users can create, retrieve, update, and delete records through a secure REST API backed by MongoDB Atlas.
+
+### Cloud Deployment
+
+The application is deployed using a modern cloud architecture:
+
+* Frontend hosted on Vercel
+* Backend hosted on Render
+* Database hosted on MongoDB Atlas
+
+### RESTful API Design
+
+Designed a modular Express.js backend using middleware, routing, controllers, and database models to maintain clean separation of concerns.
+
+---
+
+## Technology Stack
+
+### Frontend
 
 * React
 * React Router
@@ -48,246 +67,178 @@ Developed scalable MongoDB schemas using Mongoose to manage user data, authentic
 * Bootstrap
 * CSS
 
-## Backend
+### Backend
 
 * Node.js
 * Express.js
 
-## Database
+### Database
 
-* MongoDB
+* MongoDB Atlas
 * Mongoose
 
-## Security
+### Security
 
 * JSON Web Tokens (JWT)
 * bcrypt Password Hashing
 * Authentication Middleware
-* Route Protection
+* Protected API Routes
+
+### Cloud & Deployment
+
+* Vercel
+* Render
+* MongoDB Atlas
+* GitHub
 
 ---
 
-# Key Features
+## Key Features
 
-## Authentication System
+### Authentication
 
-* User registration
-* Secure login
-* JWT generation and validation
-* Password encryption using bcrypt
-* Session persistence
+* User Registration
+* Secure Login
+* JWT Token Generation
+* JWT Validation
+* Password Hashing with bcrypt
+* Protected Routes
 
-## Authorization System
+### User Management
 
-* Admin permissions
-* Standard user permissions
-* Protected API endpoints
-* Role-based route access
+* Create Users
+* View Users
+* Update Users
+* Delete Users
+* Retrieve Individual User Records
 
-## User Management
+### Frontend Experience
 
-* Create users
-* View users
-* Update user information
-* Delete users
-* Retrieve individual user records
-
-## Frontend Experience
-
-* Responsive user interface
-* Protected routes
-* Dynamic navigation
-* Form validation
-* Real-time user feedback
+* Responsive User Interface
+* Dynamic Routing
+* Form Validation
+* Real-Time Notifications
+* User-Friendly Navigation
 
 ---
 
-# System Architecture
+## System Architecture
 
-```text id="mernarch"
 Client (React)
 │
 ├── Authentication Pages
 ├── User Management Views
 ├── Protected Routes
-└── API Service Layer
-        │
-        ▼
-Express API Server
+└── Axios API Layer
+│
+▼
+Express API Server (Render)
 │
 ├── Authentication Middleware
 ├── User Controllers
-├── Role Authorization
 ├── Validation Logic
 └── REST Endpoints
-        │
-        ▼
-MongoDB Database
+│
+▼
+MongoDB Atlas
 │
 ├── User Records
 ├── Authentication Data
-└── Role Information
-```
+└── Application Storage
 
 ---
 
-# Authentication Flow
+## Deployment Architecture
 
-```text id="authflow"
-User Registration
-        │
-        ▼
-Password Hashing (bcrypt)
-        │
-        ▼
-MongoDB Storage
-        │
-        ▼
-User Login
-        │
-        ▼
-JWT Generation
-        │
-        ▼
-Client Storage
-        │
-        ▼
-Authenticated Requests
-        │
-        ▼
-Middleware Validation
-        │
-        ▼
-Protected Resources
-```
-
----
-
-# API Endpoints
-
-| Method | Endpoint             | Description        | Access        |
-| ------ | -------------------- | ------------------ | ------------- |
-| POST   | /api/user            | Register User      | Public        |
-| POST   | /api/login           | Authenticate User  | Public        |
-| GET    | /api/users           | Retrieve All Users | Admin         |
-| GET    | /api/user/:id        | Retrieve User      | Authenticated |
-| PUT    | /api/update/user/:id | Update User        | Admin / Owner |
-| DELETE | /api/delete/user/:id | Delete User        | Admin         |
-
----
-
-# Repository Structure
-
-```text id="merntree"
-MERN-CRUD/
+Browser
 │
-├── client/
-│   ├── components/
-│   ├── pages/
-│   ├── services/
-│   └── routing/
+▼
+Vercel (React Frontend)
 │
-├── server/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   └── configuration/
+▼
+Render (Node.js / Express API)
 │
-└── README.md
-```
+▼
+MongoDB Atlas (Cloud Database)
 
 ---
 
-# Technical Challenges Solved
+## API Endpoints
 
-### Authentication Security
-
-Implemented secure password storage and token-based authentication to prevent unauthorised access.
-
-### Access Control
-
-Designed permission logic that enforces different levels of access depending on user roles.
-
-### Frontend-Backend Integration
-
-Connected React components to Express APIs using Axios while maintaining clean separation between presentation and business logic.
-
-### Route Protection
-
-Protected frontend pages and backend endpoints using authentication middleware and token verification.
+| Method | Endpoint             | Description        |
+| ------ | -------------------- | ------------------ |
+| POST   | /api/user            | Register User      |
+| POST   | /api/login           | Authenticate User  |
+| GET    | /api/users           | Retrieve All Users |
+| GET    | /api/user/:id        | Retrieve User      |
+| PUT    | /api/update/user/:id | Update User        |
+| DELETE | /api/delete/user/:id | Delete User        |
 
 ---
 
-# Running Locally
+## Running Locally
 
-Clone the repository:
+### Clone Repository
 
-```bash id="mern1"
+```bash
 git clone https://github.com/harrywardy-cmd/CRUD-App.git
-
 cd CRUD-App
 ```
 
-### Backend
+### Backend Setup
 
-```bash id="mern2"
+```bash
 cd server
-
 npm install
-
 npm start
 ```
 
-### Frontend
+### Frontend Setup
 
-```bash id="mern3"
+```bash
 cd client
-
 npm install
-
 npm start
 ```
 
 ---
 
-# Environment Variables
+## Environment Variables
 
-```env id="mern4"
-MONGO_URI=
+Backend (.env)
+
+```env
+MONGO_URL=
 JWT_SECRET=
 PORT=8000
 ```
 
+Frontend (.env)
+
+```env
+REACT_APP_API_URL=http://localhost:8000
+```
+
 ---
 
-# Learning Outcomes
+## Learning Outcomes
 
-This project provided hands-on experience with:
+This project provided practical experience with:
 
-* Full-Stack Development
+* Full-Stack MERN Development
 * REST API Design
-* Authentication & Authorization
-* JWT Security
-* Password Hashing
-* Role-Based Access Control
 * MongoDB Data Modelling
-* React State & Routing
+* JWT Authentication
+* Password Hashing & Security
+* Cloud Deployment
+* React State Management
+* React Routing
 * Frontend-Backend Integration
+* Production Environment Configuration
 
 ---
 
-# Why I Built This Project
-
-Authentication and authorization are fundamental requirements in modern software systems.
-
-This project was created to gain practical experience building secure user management platforms while learning how authentication flows, access control, database persistence, and frontend applications interact within a full-stack environment.
-
-The application demonstrates many of the same architectural patterns commonly found in production business applications, including user administration systems, SaaS platforms, and internal enterprise tools.
-
----
-
-# Author
+## Author
 
 Harry Ward
 
