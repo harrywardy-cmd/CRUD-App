@@ -216,7 +216,7 @@ PORT=8000
 Frontend (.env)
 
 ```env
-REACT_APP_API_URL=http://localhost:8000
+REACT_APP_API_URL=http://https://crud-app-mphw.onrender.com
 ```
 
 ---
