@@ -3,7 +3,7 @@ import './App.css';
 import AddUser from "./addUser/AddUser"
 import User from './getUser/User';
 import Signup from './signup/Signup';
-import Update from "./updateUser/Update";
+import Update from "./updateUser/update";
 import Login from './login/Login';
 import {RouterProvider, createBrowserRouter} from "react-router-dom"
 
