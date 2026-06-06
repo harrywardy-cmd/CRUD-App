@@ -25,7 +25,7 @@ const Signup = () => {
  const submitForm = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/api/user", user);
+      const response = await axios.post("https://crud-app-mphw.onrender.com/api/user", user);
       toast.success(response.data.message || "User created successfully!", {position: "top-right",});
       navigate("/user");
     } catch (error) {

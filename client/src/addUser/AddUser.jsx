@@ -35,7 +35,7 @@ const AddUser = () => {
       role: user.isAdmin ? "admin" : "user",
     };
 
-    const response = await axios.post("http://localhost:8000/api/user", payload);
+    const response = await axios.post("https://crud-app-mphw.onrender.com.onrender.com/api/user", payload);
     toast.success(response.data.message || "User created successfully!", { position: "top-right" });
     navigate("/user");
   } catch (error) {

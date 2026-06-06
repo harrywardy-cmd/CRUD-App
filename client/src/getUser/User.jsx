@@ -10,7 +10,7 @@ const User = () => {
     const fetchData = async () => {
         try {
         const token = localStorage.getItem("token"); // get token from storage
-        const response = await axios.get("http://localhost:8000/api/users", {
+        const response = await axios.get("https://crud-app-mphw.onrender.com/api/users", {
             headers: { Authorization: `Bearer ${token}` }
         });
         setUsers(response.data);
@@ -25,7 +25,7 @@ const User = () => {
     const deleteUser = async (userId) => {
     try {
         const token = localStorage.getItem("token"); // get the saved JWT
-        const response = await axios.delete(`http://localhost:8000/api/delete/user/${userId}`, {
+        const response = await axios.delete(`https://crud-app-mphw.onrender.com/api/delete/user/${userId}`, {
         headers: { Authorization: `Bearer ${token}` }, // include token
         });
 

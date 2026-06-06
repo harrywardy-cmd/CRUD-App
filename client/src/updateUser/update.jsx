@@ -18,7 +18,7 @@ const UpdateUser = () => {
   useEffect(() => {
     const token = localStorage.getItem("token"); // if using JWT
     axios
-      .get(`http://localhost:8000/api/user/${id}`, {
+      .get(`https://crud-app-mphw.onrender.com/api/user/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -43,7 +43,7 @@ const UpdateUser = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/update/user/${id}`,
+        `https://crud-app-mphw.onrender.com/api/update/user/${id}`,
         updatedUser,
         { headers: { Authorization: `Bearer ${token}` } }
       );

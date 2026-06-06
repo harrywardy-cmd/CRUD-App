@@ -22,7 +22,7 @@ const Login = () => {
     e.preventDefault();
     try {
       //  POST to your backend login route
-      const response = await axios.post("http://localhost:8000/api/login", user);
+      const response = await axios.post("https://crud-app-mphw.onrender.com/api/login", user);
 
       // Display success toast
       toast.success(response.data.message || "User logged in successfully!", {
